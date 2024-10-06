@@ -2,18 +2,33 @@ import './YearPeriod.scss';
 import { useEffect, useRef, useState } from 'react';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import gsap from 'gsap';
+import type { Period } from '../../libs';
 
 interface YearPeriodProps {
-	years: [number, number];
+	periods: Period[];
+	current: number;
+	onChangePeriod: (number: number) => void;
 }
 
 gsap.registerPlugin(MotionPathPlugin);
 
-export function YearPeriod({ years }: YearPeriodProps) {
-	const startYearRef = useRef<{ value: number }>({ value: years[0] });
-	const endYearRef = useRef<{ value: number }>({ value: years[1] });
-	const [startYear, setStartYear] = useState<number>(years[0]);
-	const [endYear, setEndYear] = useState<number>(years[1]);
+export function YearPeriod({ current, periods, onChangePeriod }: YearPeriodProps) {
+	const startYearRef = useRef<{ value: number }>({ value: periods[current].years[0] });
+	const endYearRef = useRef<{ value: number }>({ value: periods[current].years[1] });
+	const [startYear, setStartYear] = useState<number>(periods[current].years[0]);
+	const [endYear, setEndYear] = useState<number>(periods[current].years[1]);
+
+	const buttons = periods.map((period, index, arr) => {
+		const angle = (index / arr.length) * 2 * Math.PI;
+		const x = 125 + 250 * Math.cos(angle);
+		const y = 125 + 250 * Math.sin(angle);
+
+		return {
+			x,
+			y,
+			label: period.label,
+		};
+	});
 
 	useEffect(() => {
 		const animation = {
@@ -24,7 +39,7 @@ export function YearPeriod({ years }: YearPeriodProps) {
 
 		gsap.to(startYearRef.current, {
 			...animation,
-			value: years[0],
+			value: periods[current].years[0],
 			onUpdate: () => {
 				setStartYear(startYearRef.current.value);
 			},
@@ -32,18 +47,24 @@ export function YearPeriod({ years }: YearPeriodProps) {
 
 		gsap.to(endYearRef.current, {
 			...animation,
-			value: years[1],
+			value: periods[current].years[1],
 			onUpdate: () => {
 				setEndYear(endYearRef.current.value);
 			},
 		});
-	}, [...years]);
+	}, [current]);
 
 	return (
 		<div className="year-period">
 			<p className="year-period__item year-period__item--start">{startYear}</p>
 			<p className="year-period__item year-period__item--end">{endYear}</p>
-			<div className="year-period__controls">
+			<div
+				className="year-period__controls"
+				style={{
+					transform: `rotate(-${current * (360 / periods.length) + 60}deg)`,
+					transition: 'all 0.5s ease 0s',
+				}}
+			>
 				<svg
 					className="year-period__circle"
 					width="530"
@@ -52,12 +73,26 @@ export function YearPeriod({ years }: YearPeriodProps) {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<path
-						d="M0.499993 265.5C0.223339 119.145 119.145 0.223574 265.5 0.500238C411.579 0.77638 529.776 119.421 529.5 265.5C529.224 411.303 411.303 529.225 265.5 529.5C119.421 529.776 0.776127 411.58 0.499993 265.5Z"
-						stroke="#42567A"
-						opacity="0.2"
-					/>
+					<circle opacity="0.2" cx="268" cy="265" r="250" stroke="#42567A" />
 				</svg>
+
+				{buttons.map(({ label, x, y }, index) => (
+					<button
+						key={index}
+						className={['year-period__point', index === current ? 'active' : ''].join(' ')}
+						onClick={() => onChangePeriod(index)}
+						style={{
+							position: 'absolute',
+							left: `calc(25% - 20px + ${x}px)`,
+							top: `calc(25% - 20px + ${y}px)`,
+							transform: `rotate(calc(${current + 1} * ${periods.length}0deg))`,
+							transition: 'all 0.5s ease 0s',
+						}}
+					>
+						<span className="year-period__point-index">{index + 1}</span>
+						<span className="year-period__point-label">{label}</span>
+					</button>
+				))}
 			</div>
 		</div>
 	);

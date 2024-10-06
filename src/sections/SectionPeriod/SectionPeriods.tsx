@@ -44,7 +44,11 @@ export function SectionPeriods({ periods }: SectionPeriodsProps) {
 			<h2 className="section-periods__heading">
 				Исторические <br /> даты
 			</h2>
-			<YearPeriod years={periods[currentNumber].years} />
+			<YearPeriod
+				periods={periods}
+				current={currentNumber}
+				onChangePeriod={(number) => setCurrentNumber(number)}
+			/>
 			{!isMobile && (
 				<Switcher
 					index={currentNumber}
@@ -53,7 +57,6 @@ export function SectionPeriods({ periods }: SectionPeriodsProps) {
 					onClickNext={setNextPeriodNumber}
 				/>
 			)}
-
 			<div className="section-periods__sliders" ref={slidersContainer}>
 				{periods.map(({ items }, index) => (
 					<EventSlider key={index} id={index} items={items} active={currentNumber === index} />
