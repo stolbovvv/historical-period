@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import gsap from 'gsap';
 import type { Period } from '../../libs';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface YearPeriodProps {
 	periods: Period[];
@@ -15,6 +16,7 @@ gsap.registerPlugin(MotionPathPlugin);
 export function YearPeriod({ current, periods, onChangePeriod }: YearPeriodProps) {
 	const startYearRef = useRef<{ value: number }>({ value: periods[current].years[0] });
 	const endYearRef = useRef<{ value: number }>({ value: periods[current].years[1] });
+	const isTablet = useMediaQuery('(max-width: 1023px)');
 	const [startYear, setStartYear] = useState<number>(periods[current].years[0]);
 	const [endYear, setEndYear] = useState<number>(periods[current].years[1]);
 
@@ -76,23 +78,24 @@ export function YearPeriod({ current, periods, onChangePeriod }: YearPeriodProps
 					<circle opacity="0.2" cx="268" cy="265" r="250" stroke="#42567A" />
 				</svg>
 
-				{buttons.map(({ label, x, y }, index) => (
-					<button
-						key={index}
-						className={['year-period__point', index === current ? 'active' : ''].join(' ')}
-						onClick={() => onChangePeriod(index)}
-						style={{
-							position: 'absolute',
-							left: `calc(25% - 20px + ${x}px)`,
-							top: `calc(25% - 20px + ${y}px)`,
-							transform: `rotate(calc(${current + 1} * ${periods.length}0deg))`,
-							transition: 'all 0.5s ease 0s',
-						}}
-					>
-						<span className="year-period__point-index">{index + 1}</span>
-						<span className="year-period__point-label">{label}</span>
-					</button>
-				))}
+				{!isTablet &&
+					buttons.map(({ label, x, y }, index) => (
+						<button
+							key={index}
+							className={['year-period__point', index === current ? 'active' : ''].join(' ')}
+							onClick={() => onChangePeriod(index)}
+							style={{
+								position: 'absolute',
+								left: `calc(25% - 20px + ${x}px)`,
+								top: `calc(25% - 20px + ${y}px)`,
+								transform: `rotate(calc(${current + 1} * ${periods.length}0deg))`,
+								transition: 'all 0.5s ease 0s',
+							}}
+						>
+							<span className="year-period__point-index">{index + 1}</span>
+							<span className="year-period__point-label">{label}</span>
+						</button>
+					))}
 			</div>
 		</div>
 	);
