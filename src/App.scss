@@ -1,6 +1,8 @@
+@use "./styles/helpers/variables" as *;
+
 .app {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	height: 100%;
+	width: min($container-max-width, 100% - $container-inline-offset * 2);
+	margin: 0 auto;
 }

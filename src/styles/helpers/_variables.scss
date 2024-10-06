@@ -1,0 +1,37 @@
+/* Контейнер */
+$container-max-width: 1440px;
+$container-inline-offset: 20px;
+
+/* Цвета */
+
+$clr-black: #000000;
+$clr-white: #ffffff;
+$clr-common: #42567a;
+$clr-primary: #5d5fef;
+$clr-secondary: #ef5da8;
+
+$border-color: rgba(
+	$color: $clr-common,
+	$alpha: 0.1,
+);
+
+/* Типография */
+
+$ff-common: "PT Sans", sans-serif;
+$ff-accent: "Bebas Neue", sans-serif;
+
+$fs-xs: 14px;
+$fs-sm: clamp(14px, 0.536vw + 12.288px, 20px);
+$fs-md: clamp(16px, 0.804vw + 13.424px, 25px);
+$fs-lg: clamp(20px, 3.214vw + 9.712px, 56px);
+$fs-xl: clamp(56px, 12.857vw + 15.8576px, 200px);
+
+$fw-md: 400;
+$fw-lg: 700;
+
+$lh-sm: 1.2;
+$lh-md: 1.5;
+
+/* Вспомогательные свойства */
+
+$common-offset: clamp(0px, 8.929vw + -28.576px, 100px);

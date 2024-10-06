@@ -1,19 +1,4 @@
-*,
-*::after,
-*::before {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
+/* Глобальные стили */
 
-html,
-body {
-	max-width: 100vw;
-	min-height: 100vh;
-	overflow-x: hidden;
-}
-
-#root {
-	width: 100%;
-	height: 100%;
-}
+@forward "./styles/globals/reset";
+@forward "./styles/globals/base";

@@ -1,9 +1,11 @@
 import './App.scss';
+import { SectionPeriods } from './sections';
+import { periodsData } from './libs';
 
 export default function App() {
 	return (
 		<div className="app">
-			<h1>Исторические даты</h1>
+			<SectionPeriods periods={periodsData} />
 		</div>
 	);
 }

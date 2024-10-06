@@ -1,0 +1,13 @@
+@use "sass:map";
+
+@mixin tablet() {
+	@media screen and (width < 1024px) {
+		@content;
+	}
+}
+
+@mixin mobile() {
+	@media screen and (width < 768px) {
+		@content;
+	}
+}

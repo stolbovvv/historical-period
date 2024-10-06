@@ -1,0 +1,69 @@
+@use "../../styles/helpers/variables" as *;
+@use "../../styles/helpers/mixins" as *;
+
+.year-period {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	margin-top: 100px;
+	padding-inline: $common-offset;
+	font-size: $fs-xl;
+
+	@include tablet {
+		margin-top: 80px;
+	}
+
+	@include mobile {
+		margin-top: 60px;
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: $border-color;
+		pointer-events: none;
+		z-index: -1;
+
+		@include tablet {
+			display: none;
+		}
+	}
+
+	&__item {
+		font-weight: $fw-lg;
+		line-height: 0.75;
+
+		&--start {
+			color: $clr-primary;
+		}
+
+		&--end {
+			color: $clr-secondary;
+		}
+	}
+
+	&__controls {
+		position: absolute;
+		width: 530px;
+		height: 530px;
+
+		> svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&__point {
+		width: 6px;
+		height: 6px;
+		background: $clr-common;
+		border-radius: 50%;
+		font-size: $fs-md;
+	}
+}

@@ -1,12 +1,13 @@
 {
-	"name": "historical-dates",
-	"description": "Historical dates block",
+	"name": "historical-period",
+	"description": "Historical periods block",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
 		"start": "webpack serve --mode=development",
 		"build": "webpack --mode=production",
 		"lint": "npx eslint src/**/*.{js,jsx,ts,tsx}",
+		"format": "prettier --write .",
 		"prepare": "husky"
 	},
 	"lint-staged": {
@@ -20,8 +21,13 @@
 		"url": "https://github.com/stolbovvv"
 	},
 	"dependencies": {
+		"@fontsource/bebas-neue": "^5.1.0",
+		"@fontsource/pt-sans": "^5.1.0",
+		"@gsap/react": "^2.1.1",
+		"gsap": "^3.12.5",
 		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
+		"react-dom": "^18.3.1",
+		"swiper": "^11.1.14"
 	},
 	"devDependencies": {
 		"@types/node": "^22.7.4",
@@ -31,6 +37,7 @@
 		"@types/webpack-dev-server": "^4.7.1",
 		"@typescript-eslint/eslint-plugin": "^8.8.0",
 		"@typescript-eslint/parser": "^8.8.0",
+		"copy-webpack-plugin": "^12.0.2",
 		"css-loader": "^7.1.2",
 		"eslint": "^8.57.1",
 		"eslint-config-prettier": "^9.1.0",

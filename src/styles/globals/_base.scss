@@ -1,0 +1,15 @@
+@use "../helpers/variables" as *;
+
+body {
+	font-size: $fs-sm;
+	font-family: $ff-common;
+	font-weight: $fw-md;
+	line-height: $lh-md;
+	text-rendering: optimizeSpeed;
+	color: $clr-common;
+	background-color: $clr-white;
+}
+
+.wrapper {
+	height: 100%;
+}
